@@ -115,14 +115,13 @@ def test_admin_routes_require_admin_role(auth_headers):
 
 
 def test_shipping_estimate():
-    res = client.get("/api/orders/shipping/estimate", params={"subtotal": 100, "weight_kg": 1})
+    res = client.get("/api/orders/shipping/estimate", params={"subtotal": 6000, "weight_kg": 1})
     assert res.status_code == 200
     assert res.json()["qualifies_for_free_shipping"] is True
 
     res = client.get("/api/orders/shipping/estimate", params={"subtotal": 10, "weight_kg": 1})
     assert res.json()["qualifies_for_free_shipping"] is False
     assert res.json()["shipping_cost"] > 0
-
 
 def test_return_policy_endpoint():
     res = client.get("/api/orders/policies/returns")
